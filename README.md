@@ -7,8 +7,7 @@
 - [Filtering Operator](#filtering-operator)
 - [Transforming Operator](#transforming-operator)
 - [Combinging Operator](#combinging-operator)
-- [TimeBased Operator](#timebased-opera
-tor)
+- [TimeBased Operator](#timebased-operator)
 - [Error Handling](#error-handling)
 - [RxCocoa](#rxcocoa)
 
