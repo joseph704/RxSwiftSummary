@@ -7,7 +7,8 @@
 - [Filtering Operator](#filtering-operator)
 - [Transforming Operator](#transforming-operator)
 - [Combinging Operator](#combinging-operator)
-- [TimeBased Operator](#timebased-operator)
+- [TimeBased Operator](#timebased-opera
+tor)
 - [Error Handling](#error-handling)
 - [RxCocoa](#rxcocoa)
 
@@ -19,7 +20,7 @@
 -   사용자가 컨트롤을 조작할때 응답할 IBAction handler, 키보드 위치 변경을 감지하기 위해 notification을 관찰해야함, urlsession이 데이터로 응답할 때 실행할 클로저, KVO를 사용해서 변수의 변경사항을 감지해야함
 -   이러한 다양한 시스템은 모두 코드를 복잡하게 만듬
 -   또한 일반적으로 대부분의 클래스들은 비동기적으로 작업을 수행하고 모든 UI 구성요소들은 본질적으로 비동기적
--   따라서 내가 어떤 앱 코드를 작성했을 때 정확히 매번 어떤 순서로 작동하는지 가정하는 것을 불가능
+-   따라서 내가 어떤 앱 코드를 작성했을 때 정확히 매번 어떤 순서로 작동하는지 가정하는 것이 불가능
 -   결국 앱의 코드는 사용자 입력, 네트워크 활동 또는 기타 OS 이벤트와 같은 다양한 외부 요인에 따라 완전히 다른 순서로 실행될 수 있음
 -   모든 호출 응답코드를 처리하는 일관된 시스템이 하나 있다면, 더좋지 않을까 한 질문에서 시작한것이 Rxswift
 -   전체적인 과정에서 Observable과 Observer만 있을뿐 delegate패턴, 클래스간의 통신을 위해 closure를 삽입할 필요가 없음
