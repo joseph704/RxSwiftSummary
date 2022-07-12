@@ -90,7 +90,7 @@
 
 -   오직 하나의 요소를 포함하는 Observable 시퀀스를 생성
 
-```
+```swift
 Observable<Int>.just(1)
 ```
 
@@ -98,7 +98,7 @@ Observable<Int>.just(1)
 
 -   타입 추론을 통한 Observable 생성
 
-```
+```swift
 Observable<Int>.of(1, 2, 3, 4, 5) // 5개의 Int 타입의 element의 이벤트를 생성
 ​
 Observable.of([1, 2, 3, 4, 5])
@@ -108,7 +108,7 @@ Observable.of([1, 2, 3, 4, 5])
 
 -   오직 array 형태의 element만 받음
 
-```
+```swift
 Observable.from([1, 2, 3, 4, 5])
 ```
 
@@ -117,7 +117,7 @@ Observable.from([1, 2, 3, 4, 5])
 -   Observable이 이벤트들을 방출하도록 해줄 방아쇠 역할
 -   Observable은 실제로는 시퀀스 정의일뿐, 즉 Subscribe(구독) 되기 전에는 아무런 이벤트도 내보내지 않음
 
-```
+```swift
 Observable<Int>.just(1)
 .subscribe(onNext: {
          print($0)
@@ -128,7 +128,7 @@ Observable<Int>.just(1)
 
 -   아무런 element를 방출하지 않음, completed 이벤트만 방출
 
-```
+```swift
 Observable.empty() 
 .subscribe {
      print($0)
@@ -139,7 +139,7 @@ Observable.empty() 
 
 -   아무런 이벤트를 방출하지 않음. Completed 이벤트 조차 방출하지 않음
 
-```
+```swift
 Observable.never() 
 .subscribe(
      onNext: {
@@ -155,7 +155,7 @@ Observable.never() 
 
 -   start 부터 count크기 만큼의 값을 갖는 Observable을 생성
 
-```
+```swift
 Observable.range(start: 1, count: 9) // 1부터 9 까지 값을 요소를 이벤트로 방출
 .subscribe( onNext: {
      print("2*\($0)= \(2*$)")
@@ -166,7 +166,7 @@ Observable.range(start: 1, count: 9) // 1부터 9 까지 값을 요소를 �
 
 -   구독(Subscribe)을 처리, 메모리 누수를 막기위해!
 
-```
+```swift
 Observable.of(1, 2, 3) 
 .subscribe(onNext: {
      print($0)
@@ -179,7 +179,7 @@ Observable.of(1, 2, 3) 
 -   구독에 대해서 일일히 관리하는 것은 효율적이지 못하기 때문에, RxSwift에서 제공하는 disposedBag 타입을 이용
 -   disposeBag에는 disposables를 가지고 있음, disposable은 dispose bag이 할당 해제 하려고 할 때마다 dispose()를 호출
 
-```
+```swift
 let disposeBag = DisposeBag()
 ​
 Observable.of(1, 2, 3) 
@@ -197,7 +197,7 @@ Observable.of(1, 2, 3) 
 
 예시1)
 
-```
+```swift
 Observable.create { observer -> Disposable in
                   observer.onNext(1)
                   observer.on(.next(1))
@@ -213,7 +213,7 @@ Observable.create { observer -> Disposable in
 
 예시2)
 
-```
+```swift
 enum MyError: Error {
  case anError
 }
@@ -245,7 +245,7 @@ Observable.create { observer -> Disposable in 
 
 -   각 Subscriber에게 새롭게 Observable를 생성해 제공하는 Observable factory (Observable를 감싸는 Observable)
 
-```
+```swift
 var 뒤집기: Bool = false
 ​
 let fatory: Observable<String> = Observable.deferred {
@@ -316,7 +316,7 @@ for _ in 0...3 {
 
 -   next 이벤트를 무시함, completed, error 같은 정지이벤트는 허용
 
-```
+```swift
 let disposeBage = DisposeBag()
 ​
 let 취침모드 = PublishSubject<String>()
@@ -338,7 +338,7 @@ let 취침모드 = PublishSubject<String>()
 
 -   특정 인덱스에 해당하는 요소만 방출함, 나머지는 무시함
 
-```
+```swift
 let 두면울면깨는사람 = PublishSubject<String>()
 ​
 두면울면깨는사람
@@ -360,7 +360,7 @@ let 두면울면깨는사람 = PublishSubject<String>()
 
 -   Bool 데이터 타입의 파라미터(Bool값을 리턴하는 클로저)에 따라 true일 이벤트 방출
 
-```
+```swift
 Observable.of(1, 2, 3, 4, 5, 6, 7, 8)
 .filter { $0 % 2 == 0 }
 .subscribe(onNext: {
@@ -373,7 +373,7 @@ Observable.of(1, 2, 3, 4, 5, 6, 7, 8)
 
 -   첫번째 요소를 기준으로 몇개의 요소를 스킵할건지에 대한 연산자
 
-```
+```swift
 Observable.of(1, 2, 3, 4, 5, 6, 7, 8)
 .skip(5)
 .subscribe(onNext: {
@@ -391,7 +391,7 @@ Observable.of(1, 2, 3, 4, 5, 6, 7, 8)
 
 -   while 클로저 안의 로직이 true일때 까지 무시하게됨
 
-```
+```swift
 Observable.of(1, 2, 3, 4, 5, 6, 7, 8)
 .skip(while: {
    $0 != 6
@@ -412,7 +412,7 @@ Observable.of(1, 2, 3, 4, 5, 6, 7, 8)
 -   이전의 로직은 고정 조건에서 이루어 졌지만, 다른 Observable에 기반한 요소들을 다이나믹하게 필터하고 싶으면 skipUntil 사용
 -   기준이 되는 Observable이 이벤트를 나타내기 전까지 요소들을 무시함
 
-```
+```swift
 let 손님 = PublishSubject<String>()
 let 문여는시간 = PublishSubject<String>()
 ​
@@ -436,7 +436,7 @@ let 문여는시간 = PublishSubject<String>()
 
 -   첫번째 요소를 기준으로 몇개의 요소를 나타날건지에 대한 연산자 (skip 연산자와 반대)
 
-```
+```swift
 Observable.of("1", "2", "3", "4", "5")
 .take(3)
 .subscribe(onNext: {
@@ -454,7 +454,7 @@ Observable.of("1", "2", "3", "4", "5")
 
 -   while 구문 내에서 true일 때까지 방출하게됨 (skipWhile 연산자와 반대)
 
-```
+```swift
 Observable.of("1", "2", "3", "4", "5")
 .take(while: {
 $0 != "3"
@@ -473,7 +473,7 @@ $0 != "3"
 
 -   방출된 요소의 index를 참고하고 싶을때 사용
 
-```
+```swift
 Observable.of("1", "2", "3", "4", "5")
 .enumerated()
 .takeWhile {
@@ -490,7 +490,7 @@ Observable.of("1", "2", "3", "4", "5")
 -   이전의 로직은 고정 조건에서 이루어 졌지만, 다른 Observable에 기반한 요소들을 다이나믹하게 필터하고 싶으면 takeUntil 사용
 -   기준이 되는 Observable이 이벤트를 나타내기 전까지 요소들을 나타냄
 
-```
+```swift
 let 수강신청 = PublishSubject<String>()
 let 신청마감 = PublishSubject<String>()
 ​
@@ -511,7 +511,7 @@ let 신청마감 = PublishSubject<String>()
 
 -   연달아 같은 요소가 이어질때 중복된 방출을 막아주는 역할
 
-```
+```swift
 Observable.of("저는", "저는", "앵무새", "앵무새", "앵무새", "앵무새", "입니다", "입니다", "입니다", "입니다", "저는", "앵무새", "일까요?", "일까요?")
 .distinctUntilChanged()
 .subscribe(onNext: {
@@ -525,7 +525,7 @@ Observable.of("저는", "저는", "앵무새", "앵무새", "앵무새", "�
 
 -   Observable의 독립적 요소들을 array로 만드는 연산자 (Singe<\[T\]> 형태로 변환됨)
 
-```
+```swift
 Observable.of("A", "B", "C")
 .toArray()
 .subscribe(onNext: {
@@ -538,7 +538,7 @@ Observable.of("A", "B", "C")
 
 -   요소를 원하는 타입의 데이터로 변환해 주는 연산자
 
-```
+```swift
 Observable.of(Date())
 .map { date -> String in
    let dateFormatter = DateFormatter()
@@ -557,7 +557,7 @@ Observable.of(Date())
 -   Observable 내부의 Observable를 모두 같은 위상으로 평평하게 펼쳐주는 것
 -   반환과정은 Observable<Observable<T>> -> Observable<T>
 
-```
+```swift
 protocol 선수 {
   var 점수: BehaviorSubject<Int> { get }
 }
@@ -600,7 +600,7 @@ let 올림픽경기 = PublishSubject<선수>()
 -   시퀀스 내부의 시퀀스 중 가장 최근에 전환된 시퀀스에서 나온 값만 반영.
 -   Target observable의 결과값으로는 오직 가장 최근의 observable에서 나온 값만 받게 된다
 
-```
+```swift
 protocol 선수 {
  var 점수: BehaviorSubject<Int> { get }
 }
@@ -639,7 +639,7 @@ let 전국체전 = publishSubject<선수>()
 
 -   요소를 포함한 이벤트를 다시 요소로 받음
 
-```
+```swift
 enum 반칙: Error {
  case 부정출발
 }
@@ -680,7 +680,7 @@ let 달리기100M = BehaviorSubject<선수>(value: 김토끼) // 시퀀스 
 
 #### 전화번호 11자리 연습
 
-```
+```swift
 let input = PublishSubject<Int?>()
 ​
 let list: [Int] = [1]
@@ -735,7 +735,7 @@ input.onNext(1)
 
 -   Observable 시퀀스에 초기값을 앞에 붙임
 
-```
+```swift
 let 노랑반 = Observable.of("학생1","학생2","학생3")
 ​
 노랑반
@@ -756,7 +756,7 @@ let 노랑반 = Observable.of("학생1","학생2","학생3")
 
 -   같은 데이터 타입의 요소를 갖는 두개의 Observable들을 묶을 때 사용
 
-```
+```swift
 let 모바일팀원들 = Observable<String>.of("팀원1","팀원2","팀원3")
 let 팀장님 = Observable<String>.of("팀장님")
 ​
@@ -776,7 +776,7 @@ let 줄서서걷기 = Observable
 팀원3
 ```
 
-```
+```swift
 팀장님
 .concat(모바일팀원들)
 .subscribe(onNext: {
@@ -795,7 +795,7 @@ let 줄서서걷기 = Observable
 
 -   각각의 시퀀스가 다음 스퀀스가 구독되기 전에 합쳐짐을 보증
 
-```
+```swift
 let 학교: [String: Observable<String>] = [
  "1반": Observable.of("학생1","학생2","학생3"),
  "2반": Observable.of("학생4","학생5")
@@ -822,7 +822,7 @@ Observable.of("1반","2반")
 
 -   sequence들을 합치는 방법 중 하나
 
-```
+```swift
 let 강북 = Observable.from(["강북구", "성북구", "동대문구", "종로구"])
 let 강남 = Observable.from(["강남구", "강동구", "영등포구", "양천구"])
 ​
@@ -844,7 +844,7 @@ Observable.of(강북, 강남)
 양천구
 ```
 
-```
+```swift
 Observable.of(강북, 강남)
 .merge(maxConcurrent: 1) // maxConcurrent: 한번에 받아낼 Observable의 수, 네트워크 요청이 많아질때 리소스나 연결수를 제한할때 사용할 가능성있음.
 .subscribe(onNext: {
@@ -861,7 +861,7 @@ Observable.of(강북, 강남)
 -   combine(결합)된 Observable들은 값을 방출할 때마다, 제공한 클로저를 호출하며 우리는 각각의 내부 Observable들의 최종값을 받음
 -   여러 TextField를 한번에 관찰하고 값을 결합하거나 여러 소스들의 상태들을 보는 것과 같은 app이 있음
 
-```
+```swift
 let 성 = PublishSubject<String>()
 let 이름 = PublishSubject<String>()
 ​
@@ -885,7 +885,7 @@ let 성명 = Observable
 성.onNext("조")
 ```
 
-```
+```swift
 let 날짜표시형식 = Observable<DateFormatter.Style>.of(.short, .long)
 let 현재날짜 = Observable<Date>.of(Date())
 ​
@@ -911,7 +911,7 @@ return dateFormatter.string(from: 날짜)
 September 12, 2021
 ```
 
-```
+```swift
 let lastName = PublishSubject<String>() // 성
 let firstName = PublishSubject<String>() // 이름
 ​
@@ -942,7 +942,7 @@ Lilly Kim
 -   결합을 원하는 각각의 시퀀스들의 요소들을 순차적으로 결합함
 -   둘중 하나의 Observable이 완료되면 zip에대한 Observable은 종료함
 
-```
+```swift
 enum 승패 {
  case 승
  case 패
@@ -976,7 +976,7 @@ let 시합결과 = Observable
 
 -   withLatestFrom을 호출한 Observable은 onNext하면 withLatestFrom의 파라미터인 Observable의 최신값을 trigger함
 
-```
+```swift
 let 🔫 = PublishSubject<Void>()
 let 달리기선수 = PublishSubject<String>()
 ​
@@ -1003,7 +1003,7 @@ let 달리기선수 = PublishSubject<String>()
 
 -   withLatestFrom 처럼 trigger 역할을 하지만 단 한번만 trigger함
 
-```
+```swift
 let 출발 = PublishSubject<Void>()
 let F1선수 = PublishSubject<String>()
 ​
@@ -1037,7 +1037,7 @@ ex)
 
 -   두가지 시퀀스를 받을 때, 두가지 시퀀스 중 어떤것을 구독할 지 애매모호 할 때 사용하는 방식이라는데, amb에 대한 두가지 Observable중 먼저 element를 방출하는 Observable만 구독하고 나머지 ObserVable은 무시됨.
 
-```
+```swift
 let 버스1 = PublishSubject<String>()
 let 버스2 = PublishSubject<String>()
 ​
@@ -1066,7 +1066,7 @@ let 버스정류장 = 버스1.amb(버스2)
 
 -   SourceObservable로 들어온 마지막 시퀀스만 구독하는 방식
 
-```
+```swift
 let 학생1 = PublishSubject<String>()
 let 학생2 = PublishSubject<String>()
 let 학생3 = PublishSubject<String>()
@@ -1111,7 +1111,7 @@ let 손든사람만말할수있는교실 = 손들기.switchLatest()
 
 -   제공된 초기값(예제에서는 0)부터 시작해서 source observable이 값을 방출할 때마다 그 값을 가공함 (swift 기본 문법 reduce와 동일)
 
-```
+```swift
 Observable.from([1...10])
 .reduce(0, accumlator: { summary, newValue in
      return summary + newValue
@@ -1129,7 +1129,7 @@ Observable.from([1...10])
 
 -   reduce의 경우, 결과값만을 방출하지만, scan은 매번 값이 들어올때 마다 결과값을 방출하게 됨
 
-```
+```swift
 Observable.from([1...10])
 .scan(0, accumlator: { summary, newValue in
      return summary + newValue
@@ -1158,7 +1158,7 @@ Observable.from([1...10])
 
 -   구독자가 과거의 요소들을 자신이 구독하기 전에 나왔던 이벤트들을 버퍼의 갯수만큼 최신 순서대로 받게 한다.
 
-```
+```swift
 let 인사말 = PublishSubject<String>()
 let 반복하는앵무새 = 인사말.replay(1)
 반복하는앵무새.connect()
@@ -1183,7 +1183,7 @@ let 반복하는앵무새 = 인사말.replay(1)
 
 -   구독자가 과거의 요소들을 자신이 구독하기 전에 나왔던 이벤트들을 무제한으로 받게 한다.
 
-```
+```swift
 let 닥터스트레인지 = PublishSubject<String>()
 let 타임스톤 = 닥터스트레인지.replayAll()
 타임스톤.connect()
@@ -1207,7 +1207,7 @@ let 타임스톤 = 닥터스트레인지.replayAll()
 -   이벤트를 번들로 한번에 묶어서 묶음(Array)으로 방출
 -   **timeSpan**은 항목을 수집하는 시간, **count**는 최대 몇개까지의 요소를 담을지, **scheduler**는 해당 연사자가 실행될 쓰레드를 결정
 
-```
+```swift
 let source = PublishSubject<String>()
 ​
 var count = 0
@@ -1241,7 +1241,7 @@ source
 
 -   Buffer와 달리 **묶음(Array)이 아닌 Observable 하나씩 방출해줌**
 
-```
+```swift
 let 만들어낼최대Observable수 = 1
 let 만들시간 = RxTimerInterval.seconds(2)
 ​
@@ -1276,7 +1276,7 @@ window
 
 -   구독을 지연하는 연산자
 
-```
+```swift
 let delaySource = PublishSubject<String>()
 ​
 var delayCount = 0
@@ -1300,7 +1300,7 @@ delaySource
 
 -   시퀀스를 지연하는 연산자
 
-```
+```swift
 let delaySubject = PublishSubject<Int>()
 ​
 var delayCount = 0
@@ -1336,7 +1336,7 @@ delaySubject
 
 -   지정한 시간에 따라 이벤트를 방출 시켜주는 연산자
 
-```
+```swift
 Observable<Int>
 .interval(.seconds(3), scheduler: MainScheduler.instance)
 .subscribe(onNext: {
@@ -1349,7 +1349,7 @@ Observable<Int>
 
 -   **dueTime**을 통해 구독을 시작하기까지의 딜레이값, **period**는 이벤트가 방출되는 간격
 
-```
+```swift
 Observable<Int>
 .timer(
      .seconds(5),
@@ -1366,7 +1366,7 @@ Observable<Int>
 
 -   **dueTime** 시간내에 어떠한 이벤트도 방출하지 않았을때, 에러를 방출함
 
-```
+```swift
 let 누르지않으면에러 = UIButton(type: .system)
 누르지않으면에러.setTile("눌러주세요!", for: .normal)
 누르지않으면에러.sizeToFit()
@@ -1398,7 +1398,7 @@ PlaygroundPage.current.liveView = 누르지않으면에러
         -   Error를 다른 타입의 Observable 로 반환하는 클로저를 parameter로 받음
         -   Error가 발생했을 때 Error를 무시하고 클로저의 반환값(Observable<E>)을 반환
         
-        ```
+        ```swift
         let observable = Observable<Int>
            .create { observer -> Disposable in
                observer.onNext(1)
@@ -1427,7 +1427,7 @@ PlaygroundPage.current.liveView = 누르지않으면에러
         -   Error 가 발생했을 때 Error 를 무시하고 element를 반환
         -   모든 에러에 동일한 값이 반환되기 때문에 catchError 에 비해 제한적
         
-        ```
+        ```swift
         let observable = Observable<Int>
            .create { observer -> Disposable in
                observer.onNext(1)
@@ -1461,7 +1461,7 @@ PlaygroundPage.current.liveView = 누르지않으면에러
         
         -   에러가 발생했을 때 성공할 때까지 Observable을 다시 시도
         
-        ```
+        ```swift
         let reloadPublisher = PublishSubject<Void>()
         ​
         reloadPublisher
@@ -1477,7 +1477,7 @@ PlaygroundPage.current.liveView = 누르지않으면에러
         -   maxAttemptCount 가 3 이라면 총 3번의 요청을 보냄 (재시도는 2번)
         -   재시도 횟수가 넘어가면 그대로 Error를 이벤트로 전달
         
-        ```
+        ```swift
         let reloadPublisher = PublishSubject<Void>()
         ​
         reloadPublisher
@@ -1492,7 +1492,7 @@ PlaygroundPage.current.liveView = 누르지않으면에러
         -   재시도 하는 시점을 지정할 수 있고, 한번만 수행함
         -   retry 와 다르게 마지막 Error를 이벤트로 전달하지 않음
         
-        ```
+        ```swift
         let observable = Observable<Int>
            .create { observer -> Disposable in
                observer.onNext(1)
@@ -1556,7 +1556,7 @@ PlaygroundPage.current.liveView = 누르지않으면에러
 
 이 코드를
 
-```
+```swift
 textField.rx.text
 	.observe(on: MainScheduler.instance)
     .subscribe(onNext: {
@@ -1567,7 +1567,7 @@ textField.rx.text
 
 이렇게 변경가능
 
-```
+```swift
 textField.rx.text
 	.bind(to: label.rx.text)
     .disposed(by: disposeBag)
@@ -1590,7 +1590,7 @@ textField.rx.text
         -   control이 해제될 경우 Complete이벤트 방출
         -   **컨트롤의 event를 수신하기 위해 사용**
 
-```
+```swift
 // UIButton+Rx.swift
 extension Reactive where Base: UIButton {
     
@@ -1614,7 +1614,7 @@ extension Reactive where Base: UIButton {
 
 **Driver와 ControlPropery의 사용**
 
-```
+```swift
 let search = myTextField.rx.text.orEmpty
 		.filter { !$0.imEmpty }
         .flatMapLatest { text in
