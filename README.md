@@ -310,6 +310,9 @@ for _ in 0...3 {
 4.  Varaible
     -   BehaviorSubject 를 래핑하고, 현재의 값을 상태로 보존. 가장 최신/초기 값만을 새로운 subscriber에게 방출
 
+- Subject와 Relay의 차이점
+	-   Subject는 .completed, .error의 이벤트가 발생하면 subscribe가 종료됨
+	-   Relay는 .completed, .error를 발생하지 않고 Dispose되기 전까지 계속 작동하기 때문에 UI Event에서 사용하기 적합
 ## **Filtering Operator**
 
 #### ignoreElements
