@@ -1610,7 +1610,7 @@ extension Reactive where Base: UIButton {
             -   asDriver(onErrorJustReturn:) 
                 -   Observable에서 error가 방출됐을때 Driver에서 error 대신 지정한 기본 값을 리턴하도록 만들어 Driver에서 error가 방출 되는 것을 막음
     4.  **Signal**
-        -   Driver와 거의 동일하나 자원을 공유하지 않음**(Signal은 event모델링에 유용, Driver는 state모델링에 더 적합)**
+        -   Driver와 거의 동일하나 자원을 공유하지 않음 (Signal은 event모델링에 유용, Driver는 state모델링에 더 적합)
 
 **Driver와 ControlPropery의 사용**
 
