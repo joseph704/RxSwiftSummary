@@ -1530,11 +1530,11 @@ PlaygroundPage.current.liveView = 누르지않으면에러
 
 #### ObserverType
 
--   해당 타입에 값을 주입시킬 수 있는 타입
+-   해당 타입에 값을 주입시킬 수 있음
 
 #### ObservableType
 
--   해당 타입의 값을 관찰할 수 있는 타입
+-   해당 타입의 값을 관찰할 수 있음
 
 #### ControlProperty
 
