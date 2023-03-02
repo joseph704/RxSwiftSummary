@@ -1584,9 +1584,12 @@ textField.rx.text
 -   Signal을 제외한 나머지 Traits들은 모든 구독자에 대해 동일한 시퀀스를 공유(share연산자가 내부적으로 사용된 상태)
 -   종류
     1.  **ControlProperty**
-        -   Traits중 가장 기본형
-        -   rx네임 스페이스와 함꼐 사용 (ex) textField.rx.text)
-        -   **컨트롤에 data를 binding하기 위해 사용**
+    	- 컨트롤에 data를 binding하기 위해 사용
+		- Subject와 같이 프로퍼티에 새 값을 주입시킬 수 있음 (ObserverType), 값의 변화도 관찰할 수 있음(ObservableType)
+		- ControlPropertyType을 준수함 (ControlPropertyType은 ObserverType과 ObservableType을 준수함)
+        - ex.UITextField+Rx.Swift의 text(ControlPropery 프로퍼티)는 프로퍼티에 새값을 주입시킬 수 있고 값의 변화도 관찰할 수 있음
+		
+	
     2.  **ControlEvent**
         -   event(버튼 tap같은)를 Observable로 래핑한 속성
         -   Observable의 역할은 수행하지만, ControlProperty와는 다르게 Observer의 역할은 수행하지 못함
