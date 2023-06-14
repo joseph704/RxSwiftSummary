@@ -1004,7 +1004,7 @@ let 달리기선수 = PublishSubject<String>()
 
 #### sample
 
--   withLatestFrom 처럼 trigger 역할을 하지만 단 한번만 trigger함
+-   withLatestFrom 처럼 trigger 역할을 하지만 중복된 항목의 경우 방출하지 않음
 
 ```swift
 let 출발 = PublishSubject<Void>()
